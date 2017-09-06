@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
 
-    //mowimy przegladarce , ze chcemy malowac nasze plotno 60 razy na sekunde
+    //mowimy przegladarce , ze chcemy odswiezac nasze okno 60 razy na sekunde
     let animate = window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
@@ -14,12 +14,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
     canvas.width = CanvWidth;
     canvas.height = CanvHeight;
     let context = canvas.getContext('2d');
-    canvas.style.borderTop = "12px solid white";
-    canvas.style.borderBottom = "12px solid white";
+
+
+    //---------stylowanie
+
+    //canvas 
+    Object.assign(canvas.style, {
+        borderTop: "12px solid white",
+        borderBottom: "12px solid white",
+        margin: "100px",
+    });
+
 
     //kiedy nasze okno zostanie wczytane to dodajemy nasz canvas i wywolujemy funkcje step 
     window.onload = function() {
-        document.body.appendChild(canvas);
+
+        document.body.appendChild(canvas); //po wczytaniu laduje nasz canvas 
+        let counter = document.querySelector('div');
+
         animate(step);
     };
     //funkcja step aktualizuje polozenie naszych obiektow , renderuje je i wywoluje funkcje ponownie 
@@ -45,9 +57,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
         computer.render();
         ball.render();
         courtLine1.render();
+        globCounterP1.render();
+        globCounterAi.render();
     };
 
     //------------------------------- obiekty ---------------------------//
+    //licznik
+    let counterP1 = 0;
+    let counterAi = 0;
+
+    function globCounter(points, w, h) {
+        this.points = points; //punkt
+        this.width = w;
+        this.height = h;
+    }
+    globCounter.prototype.render = function() {
+        context.font = "30px Monaco";
+        context.fillText(this.points, this.height, this.width);
+    }
+
+    globCounter.prototype.update = function() {
+        this.points = this.points + 1;
+    };
+
+    let globCounterP1 = new globCounter(counterP1, 40, 350);
+    let globCounterAi = new globCounter(counterAi, 40, 433);
 
     //linia dzielaca boisko 
 
@@ -93,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
         // blokada ruchu w dol (zeby nie wyszlo poza canvas )
         else if (this.y + this.height > CanvHeight) {
-            this.y = height - this.height;
+            this.y = CanvHeight - this.height;
             this.y_speed = 0;
         }
     }
@@ -102,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //paletka gracza
     function Player() {
-        this.paddle = new Paddle(20, ((CanvHeight - 62) / 2), 12, 62);
+        this.paddle = new Paddle(20, ((CanvHeight - 78) / 2), 12, 78);
     }
     Player.prototype.render = function() {
         this.paddle.render();
@@ -136,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //paletka komputera
     function Computer() {
-        this.paddle = new Paddle(768, ((CanvHeight - 62) / 2), 12, 62);
+        this.paddle = new Paddle(768, ((CanvHeight - 78) / 2), 12, 78);
     }
     Computer.prototype.render = function() {
         this.paddle.render();
@@ -168,6 +202,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     };
 
     //prototyp do poruszania/update'owania polozenia pileczki 
+
     Ball.prototype.update = function(paddle1, paddle2) {
         this.x += this.x_speed; //update polozenia w poziomie, aktualna pozycja + predkosc
         this.y += this.y_speed; //update polozenia w pionie , aktualna pozycja + predkosc
@@ -185,12 +220,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
             this.y_speed = -this.y_speed;
         }
 
-        if (this.x < 0 || this.x > CanvWidth) { // jesli pilka wypadnie nie odbita to naliczamy punkt
+        // jesli pilka wypadnie nie odbita to naliczamy punkt
+
+        if (this.x < 0) {
+            counterAi++;
+            this.x_speed = 4;
+            this.y_speed = 0;
+            this.x = (CanvWidth / 2);
+            this.y = (CanvHeight / 2);
+            console.log(counterAi);
+            globCounterAi.update();
+        }
+        if (this.x > CanvWidth) {
+            counterP1++;
             this.x_speed = -4;
             this.y_speed = 0;
             this.x = (CanvWidth / 2);
             this.y = (CanvHeight / 2);
-            console.log('wpadlo');
+            console.log(counterP1);
+            globCounterP1.update();
         }
         //-------------------------- odbicia od paletek
 
@@ -206,7 +254,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 bottomEdge <= (paddle1.y + paddle1.height)) {
 
                 this.x_speed = 4;
-                this.y_speed += (paddle1.y_speed / 2);
+                this.y_speed += (paddle1.y_speed / 2) + Math.random() < 0.5 ? -1 : 1; //dodalem 0.5 zeby przy braku poruszania paletkami pilka nie trwala w jednej linii
+
                 this.x += this.x_speed;
             }
         }
@@ -218,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 bottomEdge <= paddle2.y + paddle2.height) {
 
                 this.x_speed = -4;
-                this.y_speed += (paddle2.y_speed / 2);
+                this.y_speed += (paddle2.y_speed / 2) + Math.random() < 0.5 ? -1 : 1; // dodalem 0.5 jak wyzej 
                 this.x += this.x_speed;
             }
         }
