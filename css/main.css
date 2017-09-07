@@ -1,0 +1,292 @@
+    html {
+        font-size: 10px;
+    }
+    /* gird */
+    
+    .container {
+        width: 100%;
+        max-width: 128rem;
+        margin: 0 auto;
+    }
+    
+    .row::before,
+    .row::after {
+        display: block;
+        clear: both;
+        content: "";
+    }
+    
+    [class*="col-"] {
+        float: left;
+        min-height: 1px;
+    }
+    
+    .col-1 {
+        width: 16.66%;
+    }
+    
+    .col-2 {
+        width: 33.33%;
+    }
+    
+    .col-3 {
+        width: 50%;
+    }
+    
+    .col-4 {
+        width: 66.66%;
+    }
+    
+    .col-5 {
+        width: 83.33%;
+    }
+    
+    .col-6 {
+        width: 100%;
+    }
+    
+    .fill {
+        height: 1px;
+    }
+    /* header */
+    
+    .header {
+        background-color: #e1ceca;
+        height: 10rem;
+        border-top: 0.5rem solid white;
+        border-bottom: 0.5rem solid white;
+    }
+    
+    .header .col-4 {
+        font-family: 'Atomic Age', cursive;
+        font-size: 4rem;
+        color: #575a7b;
+        padding-top: 1rem;
+        margin-left: 16.66%;
+    }
+    
+    .header .col-4 h1 {
+        padding-left: 12rem;
+    }
+    
+    .header .col-4 h2 {
+        padding-left: 24rem;
+    }
+    
+    .header .c1 {
+        position: absolute;
+    }
+    
+    .header .row {
+        position: relative;
+    }
+    
+    #logo {
+        height: auto;
+        width: auto;
+        max-height: 100%;
+        max-width: 100%;
+        margin-top: 1.7rem;
+        margin-left: 2rem;
+    }
+    
+    .git {
+        width: 5rem;
+        height: 5rem;
+        background-image: url("../pictures/github1.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+        background-size: contain;
+        margin: 1rem;
+        margin-top: 2rem;
+    }
+    
+    .linkedin {
+        width: 5rem;
+        height: 5rem;
+        background-image: url("../pictures/linin1.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+        background-size: cover;
+        margin: 1rem;
+        margin-top: 2rem;
+    }
+    /* TV */
+    
+    .tv {
+        min-width: 128rem;
+        max-width: 128rem;
+        width: 100%;
+        height: 72rem;
+        background-image: url("../pictures/tv2.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 3rem;
+        margin: 0px;
+    }
+    
+    .tv row {
+        position: relative;
+    }
+    
+    #gameContainer {
+        height: 30.9rem;
+        width: 42.7rem;
+        margin-left: 44.4%;
+        margin-top: 21%;
+    }
+    
+    .tv .col-6 {
+        position: relative;
+    }
+    
+    #onOff {
+        padding: 0;
+        border: none;
+        background: none;
+        width: 5.5rem;
+        height: 5.5rem;
+        position: absolute;
+        margin-left: 83.5rem;
+        margin-top: 57.6rem;
+        border-radius: 2.5rem;
+        position: absolute;
+    }
+    
+    #onOff:hover {
+        cursor: pointer;
+        cursor: hand;
+    }
+    
+    .gameHolder {
+        position: absolute;
+        margin-left: 30rem;
+        width: 42.7rem;
+        height: 30.9rem;
+        margin-left: 37.9rem;
+        margin-top: -20.5rem;
+    }
+    /* fotter */
+    
+    .footer {
+        height: 18rem;
+        font-family: 'Atomic Age', cursive;
+        font-size: 3rem;
+    }
+    
+    .footer h5 {
+        margin-left: 8rem;
+        margin-top: 0.5rem;
+    }
+    
+    .footer .col-2 div {
+        margin-top: 5rem;
+        color: #c92913;
+    }
+    
+    .footer .col-3 div {
+        margin-top: 7rem;
+        color: #575a7b;
+        font-size: 2rem;
+        margin-left: 10rem;
+    }
+    
+    .myPic {
+        margin-left: -6rem;
+        margin-top: 1.5rem;
+        height: 15rem;
+        width: 15rem;
+        background-image: url("../pictures/myOwnPic.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border: 0.3rem solid white;
+        border-radius: 50%;
+        -webkit-box-shadow: 12px 12px 42px 2px rgba(0, 0, 0, 0.5);
+        -moz-box-shadow: 12px 12px 42px 2px rgba(0, 0, 0, 0.5);
+        box-shadow: 12px 12px 42px 2px rgba(0, 0, 0, 0.5);
+    }
+    /*  arrow slider */
+    
+    .arrowText {
+        position: absolute;
+        font-family: 'Atomic Age', cursive;
+        font-size: 4rem;
+        color: #575a7b;
+        z-index: 2;
+        padding-top: 6.1rem;
+        padding-left: 3rem;
+    }
+    
+    .arrowText h3 {
+        margin-bottom: 1.5rem;
+    }
+    
+    .arrowText h3:nth-child(2) {
+        margin-left: 4rem;
+        width: 30rem;
+    }
+    
+    .arrowText h3:nth-child(3) {
+        width: 30rem;
+    }
+    
+    .arrow {
+        height: 27.5rem;
+        width: 27.5rem;
+        margin-top: 20rem;
+        margin-left: -5rem;
+    }
+    
+    .arBody {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        border-top: 0.75rem solid #a6621b;
+        border-bottom: 0.75rem solid #a6621b;
+        background-color: rgba(225, 206, 202, 1);
+        border-top-right-radius: 25px 5px;
+        border-bottom-right-radius: 25px 5px;
+    }
+    
+    .arEnd {
+        height: 19.5rem;
+        width: 19.5rem;
+        border-top: 0.7rem solid #a6621b;
+        border-right: 0.7rem solid #a6621b;
+        transform: rotate(45deg);
+        background-color: rgba(225, 206, 202, 1);
+        border-top-left-radius: 25px 5px;
+        border-bottom-right-radius: 5px 25px;
+    }
+    
+    .moveEnd {
+        margin-left: 17rem;
+        margin-top: 3.6rem;
+        position: relative;
+    }
+    
+    #slide {
+        position: relative;
+        left: -80rem;
+        -webkit-animation: slide 0.7s forwards;
+        -webkit-animation-delay: 2s;
+        animation: slide 0.7s forwards;
+        animation-delay: 2s;
+        display: inline-block;
+    }
+    
+    @-webkit-keyframes slide {
+        100% {
+            left: 0px;
+        }
+    }
+    
+    @keyframes slide {
+        100% {
+            left: 0px;
+        }
+    }

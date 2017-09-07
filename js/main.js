@@ -1,6 +1,29 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
 
+    let onOff = document.querySelector('#onOff');
+    let gameWindow = document.querySelector('#gameContainer');
+
+    gameWindow.style.display = 'none';
+
+    onOff.addEventListener('click', function() {
+        if (gameWindow.style.display == 'none') {
+            gameWindow.style.display = 'initial';
+        } else {
+            gameWindow.style.display = 'none';
+        }
+    });
+
+
+
+
+
+
+    let JustPlay = function() {
+
+    }
+
+
     //mowimy przegladarce , ze chcemy odswiezac nasze okno 60 razy na sekunde
     let animate = window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -9,8 +32,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //tworzymy nasze plotno w kontekscie 2d 
     let canvas = document.createElement('canvas');
-    const CanvWidth = 800;
-    const CanvHeight = 576;
+    const CanvWidth = 427;
+    const CanvHeight = 309;
     canvas.width = CanvWidth;
     canvas.height = CanvHeight;
     let context = canvas.getContext('2d');
@@ -20,17 +43,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //canvas 
     Object.assign(canvas.style, {
-        borderTop: "12px solid white",
-        borderBottom: "12px solid white",
-        margin: "100px",
+        borderTop: "6.5px solid white",
+        borderTopLeftRadius: '30px 5px',
+        borderTopRightRadius: '30px 5px',
+        borderBottomLeftRadius: '30px 5px',
+        borderBottomRightRadius: '30px 5px',
+        borderBottom: "6.5px solid white",
+        margin: "0 auto",
+        width: "42.7rem",
+        height: "30.9rem",
+
     });
 
 
+    // //---------- tlo i otoczka dla canvas (cala estetyka)
+
+    // let mainBoard = document.createElement('div');
+    // // mainBoard.
+
+    // Object.assign(mainBoard.style, {
+    //     width: "1000px",
+    //     margin: "0 auto",
+    //     backgroundColor: 'blue',
+    // });
+    let tvWindow = document.querySelector('#gameContainer');
     //kiedy nasze okno zostanie wczytane to dodajemy nasz canvas i wywolujemy funkcje step 
     window.onload = function() {
+        // document.body.appendChild(mainBoard);
+        tvWindow.appendChild(canvas); //po wczytaniu laduje nasz canvas 
 
-        document.body.appendChild(canvas); //po wczytaniu laduje nasz canvas 
-        let counter = document.querySelector('div');
 
         animate(step);
     };
@@ -51,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //funkcja render rysuje nasze plotno i obiekty
     let render = function() {
-        context.fillStyle = "#000000";
+        context.fillStyle = "#1b191a";
         context.fillRect(0, 0, CanvWidth, CanvHeight);
         player.render();
         computer.render();
@@ -72,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.height = h;
     }
     globCounter.prototype.render = function() {
-        context.font = "30px Monaco";
+        context.font = "20px Monaco";
         context.fillText(this.points, this.height, this.width);
     }
 
@@ -80,8 +121,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.points = this.points + 1;
     };
 
-    let globCounterP1 = new globCounter(counterP1, 40, 350);
-    let globCounterAi = new globCounter(counterAi, 40, 433);
+    let globCounterP1 = new globCounter(counterP1, 35, 180);
+    let globCounterAi = new globCounter(counterAi, 35, 235);
 
     //linia dzielaca boisko 
 
@@ -90,13 +131,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.lineWidth = w; //szerokosc pojedynczej lini dzielacej boisko
     }
     courtLine.prototype.render = function() {
-        for (let i = this.lineHeight; i < CanvHeight; i += 30) {
+        for (let i = this.lineHeight; i < CanvHeight; i += 30) { //ile razy ma renderowac paski na srodku
             context.fillStyle = "white";
             context.fillRect((CanvWidth / 2) - 3, i, this.lineWidth, this.lineHeight);
         }
     }
 
-    let courtLine1 = new courtLine(6, 12);
+    let courtLine1 = new courtLine(3.25, 6.5);
 
     //obiekt paletki
     function Paddle(x, y, w, h) {
@@ -136,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //paletka gracza
     function Player() {
-        this.paddle = new Paddle(20, ((CanvHeight - 78) / 2), 12, 78);
+        this.paddle = new Paddle(6.5, ((CanvHeight - 42.25) / 2), 6.5, 42.25);
     }
     Player.prototype.render = function() {
         this.paddle.render();
@@ -147,9 +188,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     Player.prototype.update = function() {
         for (var key in keysDown) {
             var value = Number(key);
-            if (value == 38) { // gora
+            if (value == 87) { // gora
                 this.paddle.move(0, -4);
-            } else if (value == 40) { // dol
+            } else if (value == 83) { // dol
                 this.paddle.move(0, 4);
             } else {
                 this.paddle.move(0, 0);
@@ -170,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //paletka komputera
     function Computer() {
-        this.paddle = new Paddle(768, ((CanvHeight - 78) / 2), 12, 78);
+        this.paddle = new Paddle(417, ((CanvHeight - 42.25) / 2), 6.5, 42.25);
     }
     Computer.prototype.render = function() {
         this.paddle.render();
@@ -187,8 +228,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.x_speed = -3;
         this.y_speed = 0;
         //rozmair pilki
-        this.width = 12;
-        this.height = 12;
+        this.width = 6.5;
+        this.height = 6.5;
     }
 
     //wyswietlenie pileczki
@@ -208,15 +249,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.y += this.y_speed; //update polozenia w pionie , aktualna pozycja + predkosc
         //krawedzie pilki
         let leftEdge = this.x; // pozycja lewej krawedzi
-        let bottomEdge = this.y + 12; //pozycja dolnej krawedzi
-        let rightEdge = this.x + 12; //pozycja prawej krawedzi
+        let bottomEdge = this.y + 6.5; //pozycja dolnej krawedzi
+        let rightEdge = this.x + 6.5; //pozycja prawej krawedzi
         let topEdge = this.y; //pozycja gornej krawedzi
 
         if (this.y < 0) { // uderzenie w gorna sciane 
             this.y = 6;
             this.y_speed = -this.y_speed;
         } else if (this.y + 6 > CanvHeight) { // uderzenie w dolna sciane 
-            this.y = (CanvHeight - 12);
+            this.y = (CanvHeight - 6.5);
             this.y_speed = -this.y_speed;
         }
 
