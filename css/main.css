@@ -161,6 +161,42 @@
         cursor: hand;
     }
     
+    #reset {
+        padding: 0;
+        border: none;
+        background: none;
+        width: 2.2rem;
+        height: 2.2rem;
+        position: absolute;
+        margin-left: 85.5rem;
+        margin-top: 24.7rem;
+        border-radius: 2.5rem;
+        position: absolute;
+    }
+    
+    #reset:hover {
+        cursor: pointer;
+        cursor: hand;
+    }
+    
+    #start {
+        padding: 0;
+        border: none;
+        background: none;
+        width: 2.2rem;
+        height: 2.2rem;
+        position: absolute;
+        margin-left: 85.5rem;
+        margin-top: 52.3rem;
+        border-radius: 2.5rem;
+        position: absolute;
+    }
+    
+    #start:hover {
+        cursor: pointer;
+        cursor: hand;
+    }
+    
     .gameHolder {
         position: absolute;
         margin-left: 30rem;
