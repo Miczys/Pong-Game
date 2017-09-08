@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     courtLine.prototype.render = function() {
         for (let i = this.lineHeight; i < CanvHeight; i += 30) { //ile razy ma renderowac paski na srodku
             context.fillStyle = "white";
-            context.fillRect((CanvWidth / 2) - 3, i, this.lineWidth, this.lineHeight);
+            context.fillRect((CanvWidth / 2) - 1.5, i, this.lineWidth, this.lineHeight);
         }
     }
 
@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     let player = new Player();
     let computer = new Computer();
-    let ball = new Ball((CanvWidth / 2), (CanvHeight / 2));
+    let ball = new Ball((CanvWidth / 2) - 3.25, (CanvHeight / 2) - 3.25);
 
     //------------------------------------------ai komputera 
 
