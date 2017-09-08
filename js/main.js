@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
+    var isGamePlaying = false;
 
-    let onOff = document.querySelector('#onOff');
-    let gameWindow = document.querySelector('#gameContainer');
-
+    var onOff = document.querySelector('#onOff');
+    var gameWindow = document.querySelector('#gameContainer');
     gameWindow.style.display = 'none';
 
     onOff.addEventListener('click', function() {
@@ -14,29 +14,41 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     });
 
+    var starter = document.querySelector('#start');
+    starter.addEventListener('click', function() {
+        isGamePlaying = true;
+        console.log(isGamePlaying);
+    });
+
+    var reset = document.querySelector('#reset');
+    reset.addEventListener('click', function() {
+        isGamePlaying = false;
+        globCounterP1.points = 0;
+        globCounterAi.points = 0;
+        player.paddle.y = ((CanvHeight - 42.25) / 2);
+        computer.paddle.y = ((CanvHeight - 42.25) / 2);
+        ball.x = (CanvWidth / 2);
+        ball.y = (CanvHeight / 2);
+        ball.x_speed = -3;
+        ball.y_speed = 0;
 
 
-
-
-
-    let JustPlay = function() {
-
-    }
-
+    });
+    // GameInit()
 
     //mowimy przegladarce , ze chcemy odswiezac nasze okno 60 razy na sekunde
-    let animate = window.requestAnimationFrame ||
+    var animate = window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         function(callback) { window.setTimeout(callback, 1000 / 60) };
 
     //tworzymy nasze plotno w kontekscie 2d 
-    let canvas = document.createElement('canvas');
+    var canvas = document.createElement('canvas');
     const CanvWidth = 427;
     const CanvHeight = 309;
     canvas.width = CanvWidth;
     canvas.height = CanvHeight;
-    let context = canvas.getContext('2d');
+    var context = canvas.getContext('2d');
 
 
     //---------stylowanie
@@ -66,17 +78,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //     margin: "0 auto",
     //     backgroundColor: 'blue',
     // });
-    let tvWindow = document.querySelector('#gameContainer');
+    var tvWindow = document.querySelector('#gameContainer');
     //kiedy nasze okno zostanie wczytane to dodajemy nasz canvas i wywolujemy funkcje step 
     window.onload = function() {
         // document.body.appendChild(mainBoard);
         tvWindow.appendChild(canvas); //po wczytaniu laduje nasz canvas 
-
-
         animate(step);
     };
     //funkcja step aktualizuje polozenie naszych obiektow , renderuje je i wywoluje funkcje ponownie 
-    let step = function() {
+
+
+    var step = function() {
         update();
         render();
         animate(step);
@@ -84,14 +96,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
     //
-    let update = function() {
-        player.update();
-        computer.update(ball);
-        ball.update(player.paddle, computer.paddle);
+    var update = function() {
+        if (isGamePlaying == true) {
+            player.update();
+            computer.update(ball);
+            ball.update(player.paddle, computer.paddle);
+        }
+
     };
 
     //funkcja render rysuje nasze plotno i obiekty
-    let render = function() {
+    var render = function() {
         context.fillStyle = "#1b191a";
         context.fillRect(0, 0, CanvWidth, CanvHeight);
         player.render();
@@ -326,16 +341,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     Computer.prototype.update = function(ball) {
         let y_pos = ball.y; //polozenie pilki 
-        let diff = -((this.paddle.y + (this.paddle.height / 2)) - y_pos);
-        if (diff < 0 && diff < -4) { // predkosc gora 
-            diff = -4;
-        } else if (diff > 0 && diff > 4) { // predkosc dol
-            diff = 4;
+        let d = -((this.paddle.y + (this.paddle.height / 2)) - y_pos);
+        if (d < 0 && d < -4) { // predkosc gora 
+            d = -4;
+        } else if (d > 0 && d > 4) { // predkosc dol
+            d = 4;
         }
 
         //blokujemy wychodzenie paletki komputera poza obszar
 
-        this.paddle.move(0, diff);
+        this.paddle.move(0, d);
 
         if (this.paddle.y < 0) {
             this.paddle.y = 0;
