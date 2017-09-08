@@ -327,10 +327,10 @@
     
     #slide {
         position: relative;
-        left: -80rem;
-        -webkit-animation: slide 0.7s forwards;
+        left: -800rem;
+        -webkit-animation: slide 1s forwards;
         -webkit-animation-delay: 2s;
-        animation: slide 0.7s forwards;
+        animation: slide 1s forwards;
         animation-delay: 2s;
         display: inline-block;
     }
@@ -402,12 +402,12 @@
     
     @-webkit-keyframes slide2 {
         100% {
-            right: 13rem;
+            right: 0rem;
         }
     }
     
     @keyframes slide2 {
         100% {
-            right: 13rem;
+            right: 0rem;
         }
     }
