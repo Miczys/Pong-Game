@@ -1,7 +1,8 @@
 
 # Pong Game (Projekt Koncowy dla CodersLab.pl)
 > v 1.0.0
-
+> https://miczys.github.io/Pong-Game/
+> I used Vanilla js, html and css for repetition ^_-
 
 ## How to start ?
 
